@@ -18,11 +18,6 @@ public class LoadoutState : AState
 	public RectTransform charSelect;
 	public Transform charPosition;
 
-	[Header("Theme UI")]
-	public Text themeNameDisplay;
-	public RectTransform themeSelect;
-	public Image themeIcon;
-
 	[Header("PowerUp UI")]
 	public RectTransform powerupSelect;
 	public Image powerupIcon;
@@ -40,8 +35,6 @@ public class LoadoutState : AState
 
 	public MeshFilter skyMeshFilter;
     public MeshFilter UIGroundFilter;
-
-	public AudioClip menuTheme;
 
 
     [Header("Prefabs")]
@@ -68,7 +61,7 @@ public class LoadoutState : AState
         inventoryCanvas.gameObject.SetActive(true);
         missionPopup.gameObject.SetActive(false);
 
-        themeNameDisplay.text = "";
+       // themeNameDisplay.text = "";
 
         k_UILayer = LayerMask.NameToLayer("UI");
 
@@ -133,7 +126,6 @@ public class LoadoutState : AState
 		PopulatePowerup();
 
         StartCoroutine(PopulateCharacters());
-        StartCoroutine(PopulateTheme());
     }
 
     public override string GetName()
@@ -158,7 +150,7 @@ public class LoadoutState : AState
             m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
         }	
 
-		themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
+		//themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
     }
 
 	public void GoToStore()
@@ -200,91 +192,74 @@ public class LoadoutState : AState
             PlayerData.instance.usedTheme = 0;
         else if (PlayerData.instance.usedTheme < 0)
             PlayerData.instance.usedTheme = PlayerData.instance.themes.Count - 1;
-
-        StartCoroutine(PopulateTheme());
     }
 
-    public IEnumerator PopulateTheme()
-    {
-        ThemeData t = null;
-
-        while (t == null)
-        {
-            t = ThemeDatabase.GetThemeData(PlayerData.instance.themes[PlayerData.instance.usedTheme]);
-            yield return null;
-        }
-
-        themeNameDisplay.text = t.themeName;
-		themeIcon.sprite = t.themeIcon;
-
-		skyMeshFilter.sharedMesh = t.skyMesh;
-        UIGroundFilter.sharedMesh = t.UIGroundMesh;
-	}
 
     public IEnumerator PopulateCharacters()
     {
+		
 		accessoriesSelector.gameObject.SetActive(false);
-        PlayerData.instance.usedAccessory = -1;
+        //PlayerData.instance.usedAccessory = -1;
         m_UsedAccessory = -1;
 
-        if (!m_IsLoadingCharacter)
-        {
-            m_IsLoadingCharacter = true;
-            GameObject newChar = null;
-            while (newChar == null)
-            {
-                Character c = CharacterDatabase.GetCharacter();
+		if (!m_IsLoadingCharacter)
+		{
+			m_IsLoadingCharacter = true;
+			GameObject newChar = null;
+			while (newChar == null)
+			{
+				Character c = CharacterDatabase.GetCharacter();
 
 				if (c != null)
-                {
-                    m_OwnedAccesories.Clear();
-                    for (int i = 0; i < c.accessories.Length; ++i)
-                    {
+				{
+					m_OwnedAccesories.Clear();
+					for (int i = 0; i < c.accessories.Length; ++i)
+					{
 						// Check which accessories we own.
-                        string compoundName = c.characterName + ":" + c.accessories[i].accessoryName;
-                        if (PlayerData.instance.characterAccessories.Contains(compoundName))
-                        {
-                            m_OwnedAccesories.Add(i);
-                        }
-                    }
+						string compoundName = c.characterName + ":" + c.accessories[i].accessoryName;
+						if (PlayerData.instance.characterAccessories.Contains(compoundName))
+						{
+							m_OwnedAccesories.Add(i);
+						}
+					}
 
-                    Vector3 pos = charPosition.transform.position;
-                    if (m_OwnedAccesories.Count > 0)
-                    {
-                        pos.x = k_OwnedAccessoriesCharacterOffset;
-                    }
-                    else
-                    {
-                        pos.x = 0.0f;
-                    }
-                    charPosition.transform.position = pos;
+					Vector3 pos = charPosition.transform.position;
+					if (m_OwnedAccesories.Count > 0)
+					{
+						pos.x = k_OwnedAccessoriesCharacterOffset;
+					}
+					else
+					{
+						pos.x = 0.0f;
+					}
+					charPosition.transform.position = pos;
 
-                    accessoriesSelector.gameObject.SetActive(m_OwnedAccesories.Count > 0);
+					accessoriesSelector.gameObject.SetActive(m_OwnedAccesories.Count > 0);
 
-                    newChar = Instantiate(c.gameObject);
-                    Helpers.SetRendererLayerRecursive(newChar, k_UILayer);
+					newChar = Instantiate(c.gameObject);
+					Helpers.SetRendererLayerRecursive(newChar, k_UILayer);
 					newChar.transform.SetParent(charPosition, false);
-                    newChar.transform.rotation = k_FlippedYAxisRotation;
+					newChar.transform.rotation = k_FlippedYAxisRotation;
 
-                    if (m_Character != null)
-                        Destroy(m_Character);
+					if (m_Character != null)
+						Destroy(m_Character);
 
-                    m_Character = newChar;
+					m_Character = newChar;
 
-                    m_Character.transform.localPosition = Vector3.right * 1000;
-                    //animator will take a frame to initialize, during which the character will be in a T-pose.
-                    //So we move the character off screen, wait that initialised frame, then move the character back in place.
-                    //That avoid an ugly "T-pose" flash time
-                    yield return new WaitForEndOfFrame();
-                    m_Character.transform.localPosition = Vector3.zero;
+					m_Character.transform.localPosition = Vector3.right * 1000;
+					//animator will take a frame to initialize, during which the character will be in a T-pose.
+					//So we move the character off screen, wait that initialised frame, then move the character back in place.
+					//That avoid an ugly "T-pose" flash time
+					yield return new WaitForEndOfFrame();
+					m_Character.transform.localPosition = Vector3.zero;
 
-                    SetupAccessory();
-                }
-                else
-                    yield return new WaitForSeconds(1.0f);
-            }
-            m_IsLoadingCharacter = false;
-        }
+					SetupAccessory();
+				}
+				else
+					yield return new WaitForSeconds(1.0f);
+			}
+			m_IsLoadingCharacter = false;
+		}
 	}
 
     void SetupAccessory()
@@ -307,6 +282,7 @@ public class LoadoutState : AState
 
 	void PopulatePowerup()
 	{
+		return;
 		powerupIcon.gameObject.SetActive(true);
 
         if (PlayerData.instance.consumables.Count > 0)
