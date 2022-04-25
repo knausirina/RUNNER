@@ -81,11 +81,13 @@ public class LoadoutState : AState
         // Reseting the global blinking value. Can happen if the game unexpectedly exited while still blinking
         Shader.SetGlobalFloat("_BlinkingValue", 0.0f);
 
+		/*
         if (MusicPlayer.instance.GetStem(0) != menuTheme)
 		{
             MusicPlayer.instance.SetStem(0, menuTheme);
             StartCoroutine(MusicPlayer.instance.RestartAllStems());
         }
+		*/
 
         runButton.interactable = false;
         runButton.GetComponentInChildren<Text>().text = "Loading...";

@@ -77,11 +77,13 @@ public class GameState : AState
             m_LifeHearts[i] = lifeRectTransform.GetChild(i).GetComponent<Image>();
         }
 
+		/*
         if (MusicPlayer.instance.GetStem(0) != gameTheme)
         {
             MusicPlayer.instance.SetStem(0, gameTheme);
             CoroutineHandler.StartStaticCoroutine(MusicPlayer.instance.RestartAllStems());
         }
+		*/
 
         m_AdsInitialised = false;
         m_GameoverSelectionDone = false;

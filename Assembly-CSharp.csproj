@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{0AB39ACD-2EE6-E15C-4D2B-642E1651D37D}</ProjectGuid>
+    <ProjectGuid>{F9D3643D-5E79-EBC8-3C28-CC65764647AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -97,9 +97,6 @@
     <Compile Include="Assets\Scripts\OpenURL.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Pooler.cs" />
-    <Compile Include="Assets\Scripts\Sounds\AssignOutputChannel.cs" />
-    <Compile Include="Assets\Scripts\Sounds\CountdownSound.cs" />
-    <Compile Include="Assets\Scripts\Sounds\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\Themes\ThemeData.cs" />
     <Compile Include="Assets\Scripts\Themes\ThemeDatabase.cs" />
     <Compile Include="Assets\Scripts\Tracks\TrackManager.cs" />
@@ -107,7 +104,6 @@
     <Compile Include="Assets\Scripts\UI\AdsForMission.cs" />
     <Compile Include="Assets\Scripts\UI\HighscoreUI.cs" />
     <Compile Include="Assets\Scripts\UI\Leaderboard.cs" />
-    <Compile Include="Assets\Scripts\UI\LicenceDisplayer.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MissionEntry.cs" />
     <Compile Include="Assets\Scripts\UI\MissionUI.cs" />
@@ -124,58 +120,29 @@
     <Compile Include="Assets\Scripts\UI\Shop\ShopUI.cs" />
     <Compile Include="Assets\Scripts\UI\StartButton.cs" />
     <Compile Include="Assets\Scripts\WorldCurver.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\AnalyticsEvent.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\AcquisitionSource.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\AcquisitionType.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\AdvertisingNetwork.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\AuthorizationNetwork.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\ScreenName.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\ShareType.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\SocialNetwork.cs" />
-    <Compile Include="Assets\Services\Analytics\StandardEvents\Enums\StoreType.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\AnalyticsEventTracker.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\AnalyticsEventTrackerSettings.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\AnalyticsEventParam.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\StandardEvents\CustomEventPayload.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\StandardEvents\StandardEventPayload.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\TrackableField.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\TrackableProperty.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\ValueProperty.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Attributes\ExposedToAnalyticsAttribute.cs.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Enums\TriggerBool.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Enums\TriggerLifecycleEvent.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Enums\TriggerOperator.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Enums\TriggerType.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\EventTrigger.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\TrackableTrigger.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\TriggerMethod.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\TriggerRule.cs" />
     <None Include="Assets\Shaders\CurvedRotation.shader" />
     <None Include="Assets\Link.xml" />
     <None Include="Assets\Shaders\VertexColor.shader" />
     <None Include="Assets\Shaders\CurvedCode.cginc" />
-    <None Include="Assets\Services\Analytics\Tracker\README.txt" />
     <None Include="Assets\Shaders\CurvedUnlit.shader" />
     <None Include="Assets\INSTRUCTIONS.txt" />
     <None Include="Assets\Shaders\CurvedUnlitCloud.shader" />
-    <None Include="Assets\Services\Analytics\StandardEvents\README.txt" />
     <None Include="Assets\Shaders\UnlitBlinking.shader" />
     <None Include="Assets\Shaders\CurvedUnlitAlpha.shader" />
-    <None Include="Assets\StreamingAssets\place AssetBundles folder here.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -379,13 +346,13 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

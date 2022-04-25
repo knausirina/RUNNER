@@ -399,7 +399,7 @@ public class TrackManager : MonoBehaviour
         }
 
         PlayerData.instance.UpdateMissions(this);
-        MusicPlayer.instance.UpdateVolumes(speedRatio);
+      //  MusicPlayer.instance.UpdateVolumes(speedRatio);
     }
 
     public void PowerupSpawnUpdate()

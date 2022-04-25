@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     protected List<AState> m_StateStack = new List<AState>();
     protected Dictionary<string, AState> m_StateDict = new Dictionary<string, AState>();
 
-    protected void OnEnable()
+
+	protected void OnEnable()
     {
         PlayerData.Create();
 

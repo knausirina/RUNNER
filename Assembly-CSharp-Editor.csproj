@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{2A4D80EC-CB3C-391E-6078-6002A72E8A48}</ProjectGuid>
+    <ProjectGuid>{88431646-C575-E682-F6F4-A71DD9973FA8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -66,35 +66,20 @@
     <Compile Include="Assets\AssetBundleManager\Editor\ExecuteInternalMono.cs" />
     <Compile Include="Assets\AssetBundleManager\Editor\LaunchAssetBundleServer.cs" />
     <Compile Include="Assets\Editor\BundleAndBuild.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Editor\AnalyticsEventTrackerEditor.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Editor\ListContainerDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\Editor\AnalyticsEventParamDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\Editor\AnalyticsEventParamListContainerDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\Editor\Attributes\StandardEventAttributes.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\Editor\EventPayloads\EventPayloads.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Payload\Editor\StandardEventPayloadDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\Editor\CustomEnumPopup.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\Editor\TrackableFieldDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\Editor\TrackablePropertyDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\TrackableProperty\Editor\ValuePropertyDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Editor\EventTriggerDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Editor\TrackableTriggerDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Editor\TriggerListContainerDrawer.cs" />
-    <Compile Include="Assets\Services\Analytics\Tracker\Trigger\Editor\TriggerRuleDrawer.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -331,19 +316,19 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>C:/!!!/ИРИНА/UNITY/projects/EndlessRunner/EndlessRunner/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/Ирина/Documents/GitHub/RUNNER/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll</HintPath>
@@ -375,7 +360,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{0AB39ACD-2EE6-E15C-4D2B-642E1651D37D}</Project>
+      <Project>{F9D3643D-5E79-EBC8-3C28-CC65764647AC}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
