@@ -41,7 +41,6 @@ public class TrackManager : MonoBehaviour
 	public bool invincible = false;
 
 	[Header("Objects")]
-	public ConsumableDatabase consumableDatabase;
 	public MeshFilter skyMeshFilter;
 
 	[Header("Parallax")]
@@ -215,8 +214,6 @@ public class TrackManager : MonoBehaviour
 		m_Segments.Clear();
 		m_PastSegments.Clear();
 
-		characterController.End();
-
 		gameObject.SetActive(false);
 		Destroy(characterController.character.gameObject);
 		characterController.character = null;
@@ -228,13 +225,6 @@ public class TrackManager : MonoBehaviour
 		for (int i = 0; i < parallaxRoot.childCount; ++i) 
 		{
 			Destroy (parallaxRoot.GetChild(i).gameObject);
-		}
-
-		//if our consumable wasn't used, we put it back in our inventory
-		if (characterController.inventory != null) 
-		{
-            PlayerData.instance.Add(characterController.inventory.GetConsumableType());
-			characterController.inventory = null;
 		}
 	}
 
@@ -498,17 +488,14 @@ public class TrackManager : MonoBehaviour
                 GameObject toUse;
 				if (Random.value < powerupChance)
 				{
-                    int picked = Random.Range(0, consumableDatabase.consumbales.Length);
+					int picked = 0;// Random.Range(0, consumableDatabase.consumbales.Length);
 
                     //if the powerup can't be spawned, we don't reset the time since powerup to continue to have a high chance of picking one next track segment
-                    if (consumableDatabase.consumbales[picked].canBeSpawned)
+                    if (false)//consumableDatabase.consumbales[picked].canBeSpawned)
                     {
                         // Spawn a powerup instead.
                         m_TimeSincePowerup = 0.0f;
                         powerupChance = 0.0f;
-
-                        toUse = Instantiate(consumableDatabase.consumbales[picked].gameObject, pos, rot) as GameObject;
-                        toUse.transform.SetParent(segment.transform, true);
                     }
 				}
 				else if (Random.value < premiumChance)

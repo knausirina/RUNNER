@@ -148,14 +148,6 @@ public class CharacterCollider : MonoBehaviour
 
 			}
         }
-        else if(c.gameObject.layer == k_PowerupLayerIndex)
-        {
-            Consumable consumable = c.GetComponent<Consumable>();
-            if(consumable != null)
-            {
-                controller.UseConsumable(consumable);
-            }
-        }
     }
 
     public void SetInvincibleExplicit(bool invincible)
