@@ -12,20 +12,8 @@ using UnityEngine.Analytics;
 /// </summary>
 public class LoadoutState : AState
 {
-    [Header("Char UI")]
-	public RectTransform charSelect;
+	[Header("Char UI")]
 	public Transform charPosition;
-
-	[Header("PowerUp UI")]
-	public RectTransform powerupSelect;
-	public Image powerupIcon;
-	public Text powerupCount;
-    public Sprite noItemIcon;
-
-	[Header("Accessory UI")]
-    public RectTransform accessoriesSelector;
-    public Text accesoryNameDisplay;
-	public Image accessoryIconDisplay;
 
 	[Header("Other Data")]
 	public Button runButton;
@@ -36,8 +24,6 @@ public class LoadoutState : AState
 
     [Header("Prefabs")]
     public ConsumableIcon consumableIcon;
-
-    Consumable.ConsumableType m_PowerupToUse = Consumable.ConsumableType.NONE;
 
     protected GameObject m_Character;
 	protected int m_UsedPowerupIndex;
@@ -64,13 +50,6 @@ public class LoadoutState : AState
         runButton.interactable = false;
         runButton.GetComponentInChildren<Text>().text = "Loading...";
 
-        if(m_PowerupToUse != Consumable.ConsumableType.NONE)
-        {
-            //if we come back from a run and we don't have any more of the powerup we wanted to use, we reset the powerup to use to NONE
-            if (!PlayerData.instance.consumables.ContainsKey(m_PowerupToUse) || PlayerData.instance.consumables[m_PowerupToUse] == 0)
-                m_PowerupToUse = Consumable.ConsumableType.NONE;
-        }
-
         Refresh();
     }
 
@@ -90,20 +69,11 @@ public class LoadoutState : AState
             // We reset the modifier to a default one, for next run (if a new modifier is applied, it will replace this default one before the run starts)
 			m_CurrentModifier = new Modifier();
 
-			if (m_PowerupToUse != Consumable.ConsumableType.NONE)
-			{
-				PlayerData.instance.Consume(m_PowerupToUse);
-                Consumable inv = Instantiate(ConsumableDatabase.GetConsumbale(m_PowerupToUse));
-                inv.gameObject.SetActive(false);
-                gs.trackManager.characterController.inventory = inv;
-            }
         }
     }
 
     public void Refresh()
     {
-		PopulatePowerup();
-
         StartCoroutine(PopulateCharacters());
     }
 
@@ -112,31 +82,23 @@ public class LoadoutState : AState
         return "Loadout";
     }
 
-    public override void Tick()
-    {
-        if (!runButton.interactable)
-        {
-            bool interactable = ThemeDatabase.loaded && CharacterDatabase.loaded;
-            if(interactable)
-            {
-                runButton.interactable = true;
-                runButton.GetComponentInChildren<Text>().text = "Run!";
-            }
-        }
-
-        if(m_Character != null)
-        {
-            m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
-        }	
-
-		//themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
-    }
-
-	public void GoToStore()
+	public override void Tick()
 	{
-        UnityEngine.SceneManagement.SceneManager.LoadScene(k_ShopSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-	}
+		if (!runButton.interactable)
+		{
+			bool interactable = ThemeDatabase.loaded && CharacterDatabase.loaded;
+			if (interactable)
+			{
+				runButton.interactable = true;
+				runButton.GetComponentInChildren<Text>().text = "Run!";
+			}
+		}
 
+		if (m_Character != null)
+		{
+			m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
+		}
+	}
     public void ChangeCharacter(int dir)
     {
         StartCoroutine(PopulateCharacters());
@@ -180,60 +142,6 @@ public class LoadoutState : AState
 			}
 			m_IsLoadingCharacter = false;
 		}
-	}
-
-	void PopulatePowerup()
-	{
-		return;
-		powerupIcon.gameObject.SetActive(true);
-
-        if (PlayerData.instance.consumables.Count > 0)
-        {
-            Consumable c = ConsumableDatabase.GetConsumbale(m_PowerupToUse);
-
-            powerupSelect.gameObject.SetActive(true);
-            if (c != null)
-            {
-                powerupIcon.sprite = c.icon;
-                powerupCount.text = PlayerData.instance.consumables[m_PowerupToUse].ToString();
-            }
-            else
-            {
-                powerupIcon.sprite = noItemIcon;
-                powerupCount.text = "";
-            }
-        }
-        else
-        {
-            powerupSelect.gameObject.SetActive(false);
-        }
-	}
-
-	public void ChangeConsumable(int dir)
-	{
-		bool found = false;
-		do
-		{
-			m_UsedPowerupIndex += dir;
-			if(m_UsedPowerupIndex >= (int)Consumable.ConsumableType.MAX_COUNT)
-			{
-				m_UsedPowerupIndex = 0; 
-			}
-			else if(m_UsedPowerupIndex < 0)
-			{
-				m_UsedPowerupIndex = (int)Consumable.ConsumableType.MAX_COUNT - 1;
-			}
-
-			int count = 0;
-			if(PlayerData.instance.consumables.TryGetValue((Consumable.ConsumableType)m_UsedPowerupIndex, out count) && count > 0)
-			{
-				found = true;
-			}
-
-		} while (m_UsedPowerupIndex != 0 && !found);
-
-		m_PowerupToUse = (Consumable.ConsumableType)m_UsedPowerupIndex;
-		PopulatePowerup();
 	}
 
 	public void SetModifier(Modifier modifier)

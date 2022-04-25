@@ -21,12 +21,9 @@ public class CharacterInputController : MonoBehaviour
 
 	public int maxLife = 3;
 
-	public Consumable inventory;
-
 	public int coins { get { return m_Coins; } set { m_Coins = value; } }
 	public int premium { get { return m_Premium; } set { m_Premium = value; } }
 	public int currentLife { get { return m_CurrentLife; } set { m_CurrentLife = value; } }
-	public List<Consumable> consumables { get { return m_ActiveConsumables; } }
 	public bool isJumping { get { return m_Jumping; } }
 	public bool isSliding { get { return m_Sliding; } }
 
@@ -36,16 +33,9 @@ public class CharacterInputController : MonoBehaviour
 
 	public float slideLength = 2.0f;
 
-	[Header("Sounds")]
-	public AudioClip slideSound;
-	public AudioClip powerUpUseSound;
-	public AudioSource powerupSource;
-
     protected int m_Coins;
     protected int m_Premium;
     protected int m_CurrentLife;
-
-    protected List<Consumable> m_ActiveConsumables = new List<Consumable>();
 
     protected int m_ObstacleLayer;
 
@@ -116,26 +106,11 @@ public class CharacterInputController : MonoBehaviour
         character.animator.SetBool(s_DeadHash, false);
 
 		characterCollider.Init ();
-
-		m_ActiveConsumables.Clear();
 	}
 
 	public void End()
 	{
-        CleanConsumable();
     }
-
-    public void CleanConsumable()
-    {
-        for (int i = 0; i < m_ActiveConsumables.Count; ++i)
-        {
-            m_ActiveConsumables[i].Ended(this);
-            Destroy(m_ActiveConsumables[i].gameObject);
-        }
-
-        m_ActiveConsumables.Clear();
-    }
-
     public void StartRunning()
     {
         if (character.animator)
@@ -330,7 +305,6 @@ public class CharacterInputController : MonoBehaviour
 
 			character.animator.SetFloat(s_JumpingSpeedHash, animSpeed);
 			character.animator.SetBool(s_SlidingHash, true);
-			m_Audio.PlayOneShot(slideSound);
 			m_Sliding = true;
 
 			characterCollider.Slide(true);
@@ -361,35 +335,5 @@ public class CharacterInputController : MonoBehaviour
 
         m_CurrentLane = targetLane;
         m_TargetPosition = new Vector3((m_CurrentLane - 1) * trackManager.laneOffset, 0, 0);
-    }
-
-    public void UseInventory()
-    {
-        if(inventory != null && inventory.CanBeUsed(this))
-        {
-            UseConsumable(inventory);
-            inventory = null;
-        }
-    }
-
-    public void UseConsumable(Consumable c)
-    {
-		for(int i = 0; i < m_ActiveConsumables.Count; ++i)
-        {
-            if(m_ActiveConsumables[i].GetType() == c.GetType())
-            {
-				// If we already have an active consumable of that type, we just reset the time
-                m_ActiveConsumables[i].ResetTime();
-                Destroy(c.gameObject);
-                return;
-            }
-        }
-
-        // If we didn't had one, activate that one 
-        c.transform.SetParent(transform, false);
-        c.gameObject.SetActive(false);
-
-        m_ActiveConsumables.Add(c);
-        c.Started(this);
     }
 }
