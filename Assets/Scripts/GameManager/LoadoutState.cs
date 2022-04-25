@@ -43,7 +43,6 @@ public class LoadoutState : AState
     Consumable.ConsumableType m_PowerupToUse = Consumable.ConsumableType.NONE;
 
     protected GameObject m_Character;
-    protected List<int> m_OwnedAccesories = new List<int>();
     protected int m_UsedAccessory = -1;
 	protected int m_UsedPowerupIndex;
     protected bool m_IsLoadingCharacter;
@@ -163,22 +162,6 @@ public class LoadoutState : AState
         StartCoroutine(PopulateCharacters());
     }
 
-    public void ChangeAccessory(int dir)
-    {
-        m_UsedAccessory += dir;
-        if (m_UsedAccessory >= m_OwnedAccesories.Count)
-            m_UsedAccessory = -1;
-        else if (m_UsedAccessory < -1)
-            m_UsedAccessory = m_OwnedAccesories.Count-1;
-
-        if (m_UsedAccessory != -1)
-            PlayerData.instance.usedAccessory = m_OwnedAccesories[m_UsedAccessory];
-        else
-            PlayerData.instance.usedAccessory = -1;
-
-        SetupAccessory();
-    }
-
     public IEnumerator PopulateCharacters()
     {
 		
@@ -196,29 +179,9 @@ public class LoadoutState : AState
 
 				if (c != null)
 				{
-					m_OwnedAccesories.Clear();
-					for (int i = 0; i < c.accessories.Length; ++i)
-					{
-						// Check which accessories we own.
-						string compoundName = c.characterName + ":" + c.accessories[i].accessoryName;
-						if (PlayerData.instance.characterAccessories.Contains(compoundName))
-						{
-							m_OwnedAccesories.Add(i);
-						}
-					}
-
 					Vector3 pos = charPosition.transform.position;
-					if (m_OwnedAccesories.Count > 0)
-					{
-						pos.x = k_OwnedAccessoriesCharacterOffset;
-					}
-					else
-					{
-						pos.x = 0.0f;
-					}
+					pos.x = 0.0f;
 					charPosition.transform.position = pos;
-
-					accessoriesSelector.gameObject.SetActive(m_OwnedAccesories.Count > 0);
 
 					newChar = Instantiate(c.gameObject);
 					Helpers.SetRendererLayerRecursive(newChar, k_UILayer);
@@ -236,8 +199,6 @@ public class LoadoutState : AState
 					//That avoid an ugly "T-pose" flash time
 					yield return new WaitForEndOfFrame();
 					m_Character.transform.localPosition = Vector3.zero;
-
-					SetupAccessory();
 				}
 				else
 					yield return new WaitForSeconds(1.0f);
@@ -245,24 +206,6 @@ public class LoadoutState : AState
 			m_IsLoadingCharacter = false;
 		}
 	}
-
-    void SetupAccessory()
-    {
-        Character c = m_Character.GetComponent<Character>();
-        c.SetupAccesory(PlayerData.instance.usedAccessory);
-
-        if (PlayerData.instance.usedAccessory == -1)
-        {
-            accesoryNameDisplay.text = "None";
-			accessoryIconDisplay.enabled = false;
-		}
-        else
-        {
-			accessoryIconDisplay.enabled = true;
-			accesoryNameDisplay.text = c.accessories[PlayerData.instance.usedAccessory].accessoryName;
-			accessoryIconDisplay.sprite = c.accessories[PlayerData.instance.usedAccessory].accessoryIcon;
-        }
-    }
 
 	void PopulatePowerup()
 	{

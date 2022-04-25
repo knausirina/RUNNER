@@ -167,9 +167,6 @@ public class TrackManager : MonoBehaviour
 			player.transform.SetParent(characterController.characterCollider.transform, false);
 			Camera.main.transform.SetParent(characterController.transform, true);
 
-
-            player.SetupAccesory(PlayerData.instance.usedAccessory);
-
 			characterController.character = player;
 			characterController.trackManager = this;
 

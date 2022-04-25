@@ -29,14 +29,8 @@ public class CharacterCollider : MonoBehaviour
 
 	public ParticleSystem koParticle;
 
-	[Header("Sound")]
-	public AudioClip coinSound;
-	public AudioClip premiumSound;
-
     public DeathEvent deathData { get { return m_DeathData; } }
     public new BoxCollider collider { get { return m_Collider; } }
-
-	public new AudioSource audio { get { return m_Audio; } }
 
     [HideInInspector]
 	public List<GameObject> magnetCoins = new List<GameObject>();
@@ -60,7 +54,6 @@ public class CharacterCollider : MonoBehaviour
     protected void Start()
     {
 		m_Collider = GetComponent<BoxCollider>();
-		m_Audio = GetComponent<AudioSource>();
 		m_StartingColliderHeight = m_Collider.bounds.size.y;
 	}
 
@@ -107,14 +100,12 @@ public class CharacterCollider : MonoBehaviour
 				Destroy(c.gameObject);
                 PlayerData.instance.premium += 1;
                 controller.premium += 1;
-				m_Audio.PlayOneShot(premiumSound);
 			}
             else
             {
 				Coin.coinPool.Free(c.gameObject);
                 PlayerData.instance.coins += 1;
 				controller.coins += 1;
-				m_Audio.PlayOneShot(coinSound);
             }
         }
         else if(c.gameObject.layer == k_ObstacleLayerIndex)
@@ -142,14 +133,11 @@ public class CharacterCollider : MonoBehaviour
 
 			if (controller.currentLife > 0)
 			{
-				m_Audio.PlayOneShot(controller.character.hitSound);
-                SetInvincible ();
+				SetInvincible ();
 			}
             // The collision killed the player, record all data to analytics.
 			else
 			{
-				m_Audio.PlayOneShot(controller.character.deathSound);
-
 				m_DeathData.character = controller.character.characterName;
 				m_DeathData.themeUsed = controller.trackManager.currentTheme.themeName;
 				m_DeathData.obstacleType = ob.GetType().ToString();
