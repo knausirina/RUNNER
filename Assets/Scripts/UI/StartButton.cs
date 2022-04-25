@@ -12,16 +12,11 @@ using UnityEngine.Purchasing;
 public class StartButton : MonoBehaviour
 {
     public void StartGame()
-    {
-		PlayerData.Create();// bad my
-
+	{ 
+		PlayerData.Create();//my bad
 		if (PlayerData.instance.ftueLevel == 0)
         {
             PlayerData.instance.ftueLevel = 1;
-            PlayerData.instance.Save();
-#if UNITY_ANALYTICS
-            AnalyticsEvent.FirstInteraction("start_button_pressed");
-#endif
         }
 
 #if UNITY_PURCHASING

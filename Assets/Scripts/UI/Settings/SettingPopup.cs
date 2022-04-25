@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class SettingPopup : MonoBehaviour
 {
-    public AudioMixer mixer;
-
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider masterSFXSlider;
@@ -30,17 +28,12 @@ public class SettingPopup : MonoBehaviour
 
     public void Close()
     {
-		PlayerData.instance.Save ();
         gameObject.SetActive(false);
     }
 
     void UpdateUI()
     {
-        mixer.GetFloat(k_MasterVolumeFloatName, out m_MasterVolume);
-        mixer.GetFloat(k_MusicVolumeFloatName, out m_MusicVolume);
-        mixer.GetFloat(k_MasterSFXVolumeFloatName, out m_MasterSFXVolume);
-
-        masterSlider.value = 1.0f - (m_MasterVolume / k_MinVolume);
+		masterSlider.value = 1.0f - (m_MasterVolume / k_MinVolume);
         musicSlider.value = 1.0f - (m_MusicVolume / k_MinVolume);
         masterSFXSlider.value = 1.0f - (m_MasterSFXVolume / k_MinVolume);
     }
@@ -54,21 +47,18 @@ public class SettingPopup : MonoBehaviour
     public void MasterVolumeChangeValue(float value)
     {
         m_MasterVolume = k_MinVolume * (1.0f - value);
-        mixer.SetFloat(k_MasterVolumeFloatName, m_MasterVolume);
-		PlayerData.instance.masterVolume = m_MasterVolume;
+       PlayerData.instance.masterVolume = m_MasterVolume;
     }
 
     public void MusicVolumeChangeValue(float value)
     {
         m_MusicVolume = k_MinVolume * (1.0f - value);
-        mixer.SetFloat(k_MusicVolumeFloatName, m_MusicVolume);
-		PlayerData.instance.musicVolume = m_MusicVolume;
+       PlayerData.instance.musicVolume = m_MusicVolume;
     }
 
     public void MasterSFXVolumeChangeValue(float value)
     {
         m_MasterSFXVolume = k_MinVolume * (1.0f - value);
-        mixer.SetFloat(k_MasterSFXVolumeFloatName, m_MasterSFXVolume);
-		PlayerData.instance.masterSFXVolume = m_MasterSFXVolume;
+      PlayerData.instance.masterSFXVolume = m_MasterSFXVolume;
     }
 }

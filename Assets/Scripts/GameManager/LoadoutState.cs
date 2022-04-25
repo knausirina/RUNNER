@@ -36,7 +36,6 @@ public class LoadoutState : AState
 	public Image accessoryIconDisplay;
 
 	[Header("Other Data")]
-	public Leaderboard leaderboard;
     public MissionUI missionPopup;
 	public Button runButton;
 
@@ -237,9 +236,9 @@ public class LoadoutState : AState
             GameObject newChar = null;
             while (newChar == null)
             {
-                Character c = CharacterDatabase.GetCharacter(PlayerData.instance.characters[PlayerData.instance.usedCharacter]);
+                Character c = CharacterDatabase.GetCharacter();
 
-                if (c != null)
+				if (c != null)
                 {
                     m_OwnedAccesories.Clear();
                     for (int i = 0; i < c.accessories.Length; ++i)
@@ -373,16 +372,8 @@ public class LoadoutState : AState
         if(PlayerData.instance.ftueLevel == 1)
         {
             PlayerData.instance.ftueLevel = 2;
-            PlayerData.instance.Save();
         }
 
         manager.SwitchState("Game");
-    }
-
-	public void Openleaderboard()
-	{
-		leaderboard.displayPlayer = false;
-		leaderboard.forcePlayerDisplay = false;
-		leaderboard.Open();
     }
 }

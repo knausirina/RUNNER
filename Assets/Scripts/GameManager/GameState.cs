@@ -264,7 +264,6 @@ public class GameState : AState
 		AudioListener.pause = false;
 		trackManager.End();
 		trackManager.isRerun = false;
-        PlayerData.instance.Save();
 		manager.SwitchState ("Loadout");
 	}
 

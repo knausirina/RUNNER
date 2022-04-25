@@ -23,8 +23,6 @@ public class GameManager : MonoBehaviour
 
 	protected void OnEnable()
     {
-        PlayerData.Create();
-
         s_Instance = this;
 
         m_ConsumableDatabase.Load();

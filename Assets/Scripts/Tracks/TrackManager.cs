@@ -163,7 +163,7 @@ public class TrackManager : MonoBehaviour
             characterController.gameObject.SetActive(true);
 
             // Spawn the player
-            Character player = Instantiate(CharacterDatabase.GetCharacter(PlayerData.instance.characters[PlayerData.instance.usedCharacter]), Vector3.zero, Quaternion.identity);
+            Character player = Instantiate(CharacterDatabase.GetCharacter(), Vector3.zero, Quaternion.identity);
 			player.transform.SetParent(characterController.characterCollider.transform, false);
 			Camera.main.transform.SetParent(characterController.transform, true);
 
@@ -197,15 +197,6 @@ public class TrackManager : MonoBehaviour
             Coin.coinPool = new Pooler(currentTheme.collectiblePrefab, k_StartingCoinPoolSize);
 
             PlayerData.instance.StartRunMissions(this);
-
-#if UNITY_ANALYTICS
-            AnalyticsEvent.GameStart(new Dictionary<string, object>
-            {
-                { "theme", m_CurrentThemeData.themeName},
-                { "character", player.characterName },
-                { "accessory",  PlayerData.instance.usedAccessory >= 0 ? player.accessories[PlayerData.instance.usedAccessory].accessoryName : "none"}
-            });
-#endif
         }
 
         characterController.Begin();
@@ -391,7 +382,6 @@ public class TrackManager : MonoBehaviour
         if(m_TotalWorldDistance > currentTarget)
         {
             PlayerData.instance.rank += 1;
-            PlayerData.instance.Save();
 #if UNITY_ANALYTICS
             //"level" in our game are milestone the player have to reach : one every 300m
             AnalyticsEvent.LevelUp(PlayerData.instance.rank);
