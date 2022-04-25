@@ -25,6 +25,7 @@ public class GameState : AState
     public Text premiumText;
     public Text scoreText;
 	public Text distanceText;
+    public Text multiplierText;
 	public Text countdownText;
     public RectTransform powerupZone;
 	public RectTransform lifeRectTransform;
@@ -148,15 +149,59 @@ public class GameState : AState
         if (chrCtrl.currentLife <= 0)
         {
 			pauseButton.gameObject.SetActive(false);
+            chrCtrl.CleanConsumable();
             chrCtrl.character.animator.SetBool(s_DeadHash, true);
 			chrCtrl.characterCollider.koParticle.gameObject.SetActive(true);
 			StartCoroutine(WaitForGameOver());
         }
 
         // Consumable ticking & lifetime management
+        List<Consumable> toRemove = new List<Consumable>();
         List<PowerupIcon> toRemoveIcon = new List<PowerupIcon>();
 
-       
+        for (int i = 0; i < chrCtrl.consumables.Count; ++i)
+        {
+            PowerupIcon icon = null;
+            for (int j = 0; j < m_PowerupIcons.Count; ++j)
+            {
+                if(m_PowerupIcons[j].linkedConsumable == chrCtrl.consumables[i])
+                {
+                    icon = m_PowerupIcons[j];
+                    break;
+                }
+            }
+
+            chrCtrl.consumables[i].Tick(chrCtrl);
+            if (!chrCtrl.consumables[i].active)
+            {
+                toRemove.Add(chrCtrl.consumables[i]);
+                toRemoveIcon.Add(icon);
+            }
+            else if(icon == null)
+            {
+				// If there's no icon for the active consumable, create it!
+                GameObject o = Instantiate(PowerupIconPrefab);
+                icon = o.GetComponent<PowerupIcon>();
+
+                icon.linkedConsumable = chrCtrl.consumables[i];
+                icon.transform.SetParent(powerupZone, false);
+
+                m_PowerupIcons.Add(icon);
+            }
+        }
+
+        for (int i = 0; i < toRemove.Count; ++i)
+        {
+            toRemove[i].Ended(trackManager.characterController);
+
+            Destroy(toRemove[i].gameObject);
+            if(toRemoveIcon[i] != null)
+                Destroy(toRemoveIcon[i].gameObject);
+
+            chrCtrl.consumables.Remove(toRemove[i]);
+            m_PowerupIcons.Remove(toRemoveIcon[i]);
+        }
+
         UpdateUI();
 
 		currentModifier.OnRunTick(this);
@@ -231,6 +276,7 @@ public class GameState : AState
 		}
 
         scoreText.text = trackManager.score.ToString();
+        multiplierText.text = "x " + trackManager.multiplier;
 
 		distanceText.text = Mathf.FloorToInt(trackManager.worldDistance).ToString() + "m";
 
@@ -271,6 +317,8 @@ public class GameState : AState
             if (m_PowerupIcons[i] != null)
                 Destroy(m_PowerupIcons[i].gameObject);
         }
+
+        trackManager.characterController.powerupSource.Stop();
 
         m_PowerupIcons.Clear();
     }

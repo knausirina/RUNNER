@@ -15,13 +15,17 @@ public class GameManager : MonoBehaviour
     public AState[] states;
     public AState topState {  get { if (m_StateStack.Count == 0) return null; return m_StateStack[m_StateStack.Count - 1]; } }
 
-	protected List<AState> m_StateStack = new List<AState>();
+    public ConsumableDatabase m_ConsumableDatabase;
+
+    protected List<AState> m_StateStack = new List<AState>();
     protected Dictionary<string, AState> m_StateDict = new Dictionary<string, AState>();
 
 
 	protected void OnEnable()
     {
         s_Instance = this;
+
+        m_ConsumableDatabase.Load();
 
         // We build a dictionnary from state for easy switching using their name.
         m_StateDict.Clear();

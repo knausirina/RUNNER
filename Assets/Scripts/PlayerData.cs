@@ -22,8 +22,9 @@ public class PlayerData
 
     public int coins;
     public int premium;
+    public Dictionary<Consumable.ConsumableType, int> consumables = new Dictionary<Consumable.ConsumableType, int>();   // Inventory of owned consumables and quantity.
 
-	public int usedCharacter;                               // Currently equipped character.
+    public int usedCharacter;                               // Currently equipped character.
     public int usedAccessory = -1;
     public List<string> characterAccessories = new List<string>();  // List of owned accessories, in the form "charName:accessoryName".
     public List<string> themes = new List<string>();                // Owned themes.
@@ -45,7 +46,30 @@ public class PlayerData
     // This will allow us to add data even after production, and so keep all existing save STILL valid. See loading & saving for how it work.
     // Note in a real production it would probably reset that to 1 before release (as all dev save don't have to be compatible w/ final product)
     // Then would increment again with every subsequent patches. We kept it to its dev value here for teaching purpose. 
-    static int s_Version = 11;
+    static int s_Version = 11; 
+
+    public void Consume(Consumable.ConsumableType type)
+    {
+        if (!consumables.ContainsKey(type))
+            return;
+
+        consumables[type] -= 1;
+        if(consumables[type] == 0)
+        {
+            consumables.Remove(type);
+        }
+    }
+
+    public void Add(Consumable.ConsumableType type)
+    {
+        if (!consumables.ContainsKey(type))
+        {
+            consumables[type] = 0;
+        }
+
+        consumables[type] += 1;
+    }
+
 
     public void AddTheme(string theme)
     {
@@ -270,6 +294,7 @@ public class PlayerData
 		m_Instance.themes.Clear();
 		m_Instance.missions.Clear();
 		m_Instance.characterAccessories.Clear();
+		m_Instance.consumables.Clear();
 
 		m_Instance.usedCharacter = 0;
 		m_Instance.usedTheme = 0;
