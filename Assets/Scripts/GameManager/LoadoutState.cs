@@ -12,8 +12,6 @@ using UnityEngine.Analytics;
 /// </summary>
 public class LoadoutState : AState
 {
-    public Canvas inventoryCanvas;
-
     [Header("Char UI")]
 	public RectTransform charSelect;
 	public Transform charPosition;
@@ -63,14 +61,6 @@ public class LoadoutState : AState
         // Reseting the global blinking value. Can happen if the game unexpectedly exited while still blinking
         Shader.SetGlobalFloat("_BlinkingValue", 0.0f);
 
-		/*
-        if (MusicPlayer.instance.GetStem(0) != menuTheme)
-		{
-            MusicPlayer.instance.SetStem(0, menuTheme);
-            StartCoroutine(MusicPlayer.instance.RestartAllStems());
-        }
-		*/
-
         runButton.interactable = false;
         runButton.GetComponentInChildren<Text>().text = "Loading...";
 
@@ -86,8 +76,6 @@ public class LoadoutState : AState
 
     public override void Exit(AState to)
     {
-        inventoryCanvas.gameObject.SetActive(false);
-
         if (m_Character != null) Destroy(m_Character);
 
         GameState gs = to as GameState;
@@ -261,5 +249,7 @@ public class LoadoutState : AState
         }
 
         manager.SwitchState("Game");
+
+		runButton.gameObject.SetActive(false);
     }
 }

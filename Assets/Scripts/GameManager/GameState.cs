@@ -290,15 +290,6 @@ public class GameState : AState
 		{
 			m_CountdownRectTransform.localScale = Vector3.zero;
 		}
-
-        // Consumable
-        if (trackManager.characterController.inventory != null)
-        {
-            inventoryIcon.transform.parent.gameObject.SetActive(true);
-            inventoryIcon.sprite = trackManager.characterController.inventory.icon;
-        }
-        else
-            inventoryIcon.transform.parent.gameObject.SetActive(false);
     }
 
 	IEnumerator WaitForGameOver()
