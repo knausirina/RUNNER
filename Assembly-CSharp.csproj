@@ -73,7 +73,6 @@
     <Compile Include="Assets\Scripts\Characters\RandomAnimation.cs" />
     <Compile Include="Assets\Scripts\Characters\RestartRunning.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
-    <Compile Include="Assets\Scripts\Consumable\ConsumableIcon.cs" />
     <Compile Include="Assets\Scripts\CoroutineHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameManager\GameOverState.cs" />
@@ -101,8 +100,6 @@
     <Compile Include="Assets\Scripts\UI\MissionEntry.cs" />
     <Compile Include="Assets\Scripts\UI\MissionUI.cs" />
     <Compile Include="Assets\Scripts\UI\PowerupIcon.cs" />
-    <Compile Include="Assets\Scripts\UI\Settings\DataDeleteConfirmation.cs" />
-    <Compile Include="Assets\Scripts\UI\Settings\SettingPopup.cs" />
     <Compile Include="Assets\Scripts\UI\StartButton.cs" />
     <Compile Include="Assets\Scripts\WorldCurver.cs" />
     <None Include="Assets\Shaders\CurvedRotation.shader" />

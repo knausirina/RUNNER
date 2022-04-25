@@ -22,9 +22,6 @@ public class LoadoutState : AState
     public MeshFilter UIGroundFilter;
 
 
-    [Header("Prefabs")]
-    public ConsumableIcon consumableIcon;
-
     protected GameObject m_Character;
 	protected int m_UsedPowerupIndex;
     protected bool m_IsLoadingCharacter;
@@ -32,7 +29,6 @@ public class LoadoutState : AState
 	protected Modifier m_CurrentModifier = new Modifier();
 
     protected const float k_CharacterRotationSpeed = 45f;
-    protected const string k_ShopSceneName = "shop";
     protected const float k_OwnedAccessoriesCharacterOffset = -0.1f;
     protected int k_UILayer;
     protected readonly Quaternion k_FlippedYAxisRotation = Quaternion.Euler (0f, 180f, 0f);

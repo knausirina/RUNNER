@@ -36,9 +36,7 @@ public class GameState : AState
     public Image inventoryIcon;
 
     public GameObject gameOverPopup;
-    public Button premiumForLifeButton;
     public GameObject adsForLifeButton;
-    public Text premiumCurrencyOwned;
 
     [Header("Prefabs")]
     public GameObject PowerupIconPrefab;
@@ -46,9 +44,7 @@ public class GameState : AState
 	public Modifier currentModifier = new Modifier();
 
     public string adsPlacementId = "rewardedVideo";
-#if UNITY_ANALYTICS
-    public AdvertisingNetwork adsNetwork = AdvertisingNetwork.UnityAds;
-#endif
+
     public bool adsRewarded = true;
 
     protected bool m_Finished;
@@ -215,8 +211,6 @@ public class GameState : AState
     protected void UpdateUI()
     {
         coinText.text = trackManager.characterController.coins.ToString();
-        premiumText.text = trackManager.characterController.premium.ToString();
-
 		for (int i = 0; i < 3; ++i)
 		{
 
@@ -277,11 +271,7 @@ public class GameState : AState
 
     public void OpenGameOverPopup()
     {
-        premiumForLifeButton.interactable = PlayerData.instance.premium >= 3;
-
-        premiumCurrencyOwned.text = PlayerData.instance.premium.ToString();
-
-        ClearPowerup();
+		ClearPowerup();
 
         gameOverPopup.SetActive(true);
     }

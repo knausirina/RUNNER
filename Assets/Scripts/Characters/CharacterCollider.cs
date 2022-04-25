@@ -20,7 +20,6 @@ public class CharacterCollider : MonoBehaviour
         public string obstacleType;
         public string themeUsed;
         public int coins;
-        public int premium;
         public int score;
         public float worldDistance;
     }
@@ -38,7 +37,6 @@ public class CharacterCollider : MonoBehaviour
     protected bool m_Invincible;
     protected DeathEvent m_DeathData;
 	protected BoxCollider m_Collider;
-	protected AudioSource m_Audio;
 
 	protected float m_StartingColliderHeight;
 
@@ -142,7 +140,6 @@ public class CharacterCollider : MonoBehaviour
 				m_DeathData.themeUsed = controller.trackManager.currentTheme.themeName;
 				m_DeathData.obstacleType = ob.GetType().ToString();
 				m_DeathData.coins = controller.coins;
-				m_DeathData.premium = controller.premium;
 				m_DeathData.score = controller.trackManager.score;
 				m_DeathData.worldDistance = controller.trackManager.worldDistance;
 
