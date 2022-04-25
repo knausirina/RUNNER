@@ -160,12 +160,6 @@ public class LoadoutState : AState
 
     public void ChangeCharacter(int dir)
     {
-        PlayerData.instance.usedCharacter += dir;
-        if (PlayerData.instance.usedCharacter >= PlayerData.instance.characters.Count)
-            PlayerData.instance.usedCharacter = 0;
-        else if(PlayerData.instance.usedCharacter < 0)
-            PlayerData.instance.usedCharacter = PlayerData.instance.characters.Count-1;
-
         StartCoroutine(PopulateCharacters());
     }
 
@@ -184,16 +178,6 @@ public class LoadoutState : AState
 
         SetupAccessory();
     }
-
-    public void ChangeTheme(int dir)
-    {
-        PlayerData.instance.usedTheme += dir;
-        if (PlayerData.instance.usedTheme >= PlayerData.instance.themes.Count)
-            PlayerData.instance.usedTheme = 0;
-        else if (PlayerData.instance.usedTheme < 0)
-            PlayerData.instance.usedTheme = PlayerData.instance.themes.Count - 1;
-    }
-
 
     public IEnumerator PopulateCharacters()
     {

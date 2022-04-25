@@ -24,7 +24,6 @@ public class PlayerData
     public int premium;
     public Dictionary<Consumable.ConsumableType, int> consumables = new Dictionary<Consumable.ConsumableType, int>();   // Inventory of owned consumables and quantity.
 
-    public List<string> characters = new List<string>();    // Inventory of characters owned.
     public int usedCharacter;                               // Currently equipped character.
     public int usedAccessory = -1;
     public List<string> characterAccessories = new List<string>();  // List of owned accessories, in the form "charName:accessoryName".
@@ -71,10 +70,6 @@ public class PlayerData
         consumables[type] += 1;
     }
 
-    public void AddCharacter(string name)
-    {
-        characters.Add(name);
-    }
 
     public void AddTheme(string theme)
     {
@@ -296,7 +291,6 @@ public class PlayerData
 
 	static public void NewSave()
 	{
-		m_Instance.characters.Clear();
 		m_Instance.themes.Clear();
 		m_Instance.missions.Clear();
 		m_Instance.characterAccessories.Clear();
@@ -309,7 +303,6 @@ public class PlayerData
         m_Instance.coins = 0;
         m_Instance.premium = 0;
 
-		m_Instance.characters.Add("Trash Cat");
 		m_Instance.themes.Add("Day");
 
         m_Instance.ftueLevel = 0;

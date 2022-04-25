@@ -449,7 +449,6 @@ public class TrackManager : MonoBehaviour
 		m_Segments.Add(newSegment);
 	}
 
-
 	public void SpawnObstacle(TrackSegment segment)
 	{
 		if (segment.possibleObstacles.Length != 0)
