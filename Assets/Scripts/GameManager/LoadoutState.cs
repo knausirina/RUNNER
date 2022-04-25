@@ -30,7 +30,6 @@ public class LoadoutState : AState
 	public Image accessoryIconDisplay;
 
 	[Header("Other Data")]
-    public MissionUI missionPopup;
 	public Button runButton;
 
 	public MeshFilter skyMeshFilter;
@@ -43,7 +42,6 @@ public class LoadoutState : AState
     Consumable.ConsumableType m_PowerupToUse = Consumable.ConsumableType.NONE;
 
     protected GameObject m_Character;
-    protected int m_UsedAccessory = -1;
 	protected int m_UsedPowerupIndex;
     protected bool m_IsLoadingCharacter;
 
@@ -57,12 +55,7 @@ public class LoadoutState : AState
 
     public override void Enter(AState from)
     {
-        inventoryCanvas.gameObject.SetActive(true);
-        missionPopup.gameObject.SetActive(false);
-
-       // themeNameDisplay.text = "";
-
-        k_UILayer = LayerMask.NameToLayer("UI");
+		 k_UILayer = LayerMask.NameToLayer("UI");
 
         skyMeshFilter.gameObject.SetActive(true);
         UIGroundFilter.gameObject.SetActive(true);
@@ -93,7 +86,6 @@ public class LoadoutState : AState
 
     public override void Exit(AState to)
     {
-        missionPopup.gameObject.SetActive(false);
         inventoryCanvas.gameObject.SetActive(false);
 
         if (m_Character != null) Destroy(m_Character);
@@ -164,11 +156,6 @@ public class LoadoutState : AState
 
     public IEnumerator PopulateCharacters()
     {
-		
-		accessoriesSelector.gameObject.SetActive(false);
-        //PlayerData.instance.usedAccessory = -1;
-        m_UsedAccessory = -1;
-
 		if (!m_IsLoadingCharacter)
 		{
 			m_IsLoadingCharacter = true;
