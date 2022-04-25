@@ -15,7 +15,6 @@ public class LoadoutState : AState
     public Canvas inventoryCanvas;
 
     [Header("Char UI")]
-    public Text charNameDisplay;
 	public RectTransform charSelect;
 	public Transform charPosition;
 
@@ -69,7 +68,6 @@ public class LoadoutState : AState
         inventoryCanvas.gameObject.SetActive(true);
         missionPopup.gameObject.SetActive(false);
 
-        charNameDisplay.text = "";
         themeNameDisplay.text = "";
 
         k_UILayer = LayerMask.NameToLayer("UI");
@@ -158,9 +156,8 @@ public class LoadoutState : AState
         if(m_Character != null)
         {
             m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
-        }
+        }	
 
-		charSelect.gameObject.SetActive(PlayerData.instance.characters.Count > 1);
 		themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
     }
 
@@ -273,7 +270,6 @@ public class LoadoutState : AState
                         Destroy(m_Character);
 
                     m_Character = newChar;
-                    charNameDisplay.text = c.characterName;
 
                     m_Character.transform.localPosition = Vector3.right * 1000;
                     //animator will take a frame to initialize, during which the character will be in a T-pose.
