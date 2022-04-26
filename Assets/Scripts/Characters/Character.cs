@@ -9,7 +9,6 @@ public class Character : MonoBehaviour
 {
     public string characterName;
     public int cost;
-	public int premiumCost;
 
     public Animator animator;
 	public Sprite icon;

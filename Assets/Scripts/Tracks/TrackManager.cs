@@ -191,8 +191,6 @@ public class TrackManager : MonoBehaviour
             m_SafeSegementLeft = k_StartingSafeSegments;
 
             Coin.coinPool = new Pooler(currentTheme.collectiblePrefab, k_StartingCoinPoolSize);
-
-            PlayerData.instance.StartRunMissions(this);
         }
 
         characterController.Begin();
@@ -374,9 +372,6 @@ public class TrackManager : MonoBehaviour
             AnalyticsEvent.LevelUp(PlayerData.instance.rank);
 #endif
         }
-
-        PlayerData.instance.UpdateMissions(this);
-      //  MusicPlayer.instance.UpdateVolumes(speedRatio);
     }
 
     public void PowerupSpawnUpdate()

@@ -33,11 +33,6 @@ public class CharacterInputController : MonoBehaviour
 
 	public float slideLength = 2.0f;
 
-	[Header("Sounds")]
-	public AudioClip slideSound;
-	public AudioClip powerUpUseSound;
-	public AudioSource powerupSource;
-
     protected int m_Coins;
     protected int m_Premium;
     protected int m_CurrentLife;
@@ -307,7 +302,6 @@ public class CharacterInputController : MonoBehaviour
 
 			character.animator.SetFloat(s_JumpingSpeedHash, animSpeed);
 			character.animator.SetBool(s_SlidingHash, true);
-			m_Audio.PlayOneShot(slideSound);
 			m_Sliding = true;
 
 			characterCollider.Slide(true);
