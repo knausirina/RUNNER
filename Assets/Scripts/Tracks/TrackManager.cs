@@ -486,7 +486,7 @@ public class TrackManager : MonoBehaviour
 
 
                 GameObject toUse;
-				if (Random.value < powerupChance)
+				/*if (Random.value < powerupChance)
 				{
 					int picked = 0;// Random.Range(0, consumableDatabase.consumbales.Length);
 
@@ -505,8 +505,8 @@ public class TrackManager : MonoBehaviour
 
 					toUse = Instantiate(currentTheme.premiumCollectible, pos, rot);
 					toUse.transform.SetParent(segment.transform, true);
-				}
-				else
+				}*/
+				//else
 				{
 					toUse = Coin.coinPool.Get(pos, rot);
 					toUse.transform.SetParent(segment.collectibleTransform, true);

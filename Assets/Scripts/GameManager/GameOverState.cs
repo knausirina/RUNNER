@@ -14,8 +14,6 @@ public class GameOverState : AState
     public Canvas canvas;
     public MissionUI missionPopup;
 
-	public AudioClip gameOverTheme;
-
     public GameObject addButton;
 
     public override void Enter(AState from)
@@ -26,14 +24,6 @@ public class GameOverState : AState
             missionPopup.Open();
         else
             missionPopup.gameObject.SetActive(false);
-
-		/*
-		if (MusicPlayer.instance.GetStem(0) != gameOverTheme)
-		{
-            MusicPlayer.instance.SetStem(0, gameOverTheme);
-			StartCoroutine(MusicPlayer.instance.RestartAllStems());
-        }
-		*/
     }
 
 	public override void Exit(AState to)
@@ -46,18 +36,6 @@ public class GameOverState : AState
     {
         return "GameOver";
     }
-
-    public override void Tick()
-    {
-        
-    }
-
-
-	public void GoToStore()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("shop", UnityEngine.SceneManagement.LoadSceneMode.Additive);
-    }
-
 
     public void GoToLoadout()
     {
@@ -73,8 +51,6 @@ public class GameOverState : AState
 
 	protected void FinishRun()
     {
-        CharacterCollider.DeathEvent de = trackManager.characterController.characterCollider.deathData;
-
         trackManager.End();
     }
 }

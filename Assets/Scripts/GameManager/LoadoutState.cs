@@ -84,34 +84,9 @@ public class LoadoutState : AState
         StartCoroutine(PopulateCharacters());
     }
 
-    public override string GetName()
-    {
-        return "Loadout";
-    }
-
-    public override void Tick()
-    {
-        if (!runButton.interactable)
-        {
-            bool interactable = ThemeDatabase.loaded && CharacterDatabase.loaded;
-            if(interactable)
-            {
-                runButton.interactable = true;
-                runButton.GetComponentInChildren<Text>().text = "Run!";
-            }
-        }
-
-        if(m_Character != null)
-        {
-            m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
-        }	
-
-		//themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
-    }
-
-	public void GoToStore()
+	public override string GetName()
 	{
-        UnityEngine.SceneManagement.SceneManager.LoadScene(k_ShopSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+		return "Loadout";
 	}
 
     public void ChangeCharacter(int dir)

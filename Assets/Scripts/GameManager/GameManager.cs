@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     {
         if(m_StateStack.Count > 0)
         {
-            m_StateStack[m_StateStack.Count - 1].Tick();
+          //  m_StateStack[m_StateStack.Count - 1].Tick();
         }
     }
 
@@ -128,9 +128,8 @@ public abstract class AState : MonoBehaviour
     [HideInInspector]
     public GameManager manager;
 
-    public abstract void Enter(AState from);
+	public abstract void Enter(AState from);
     public abstract void Exit(AState to);
-    public abstract void Tick();
 
     public abstract string GetName();
 }

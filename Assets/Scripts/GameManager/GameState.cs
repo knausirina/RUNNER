@@ -2,12 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-#if UNITY_ADS
-using UnityEngine.Advertisements;
-#endif
-#if UNITY_ANALYTICS
-using UnityEngine.Analytics;
-#endif
 
 /// <summary>
 /// Pushed on top of the GameManager during gameplay. Takes care of initializing all the UI and start the TrackManager
@@ -105,54 +99,10 @@ public class GameState : AState
         m_Finished = false;
     }
 
-    public override string GetName()
-    {
-        return "Game";
-    }
-
-    public override void Tick()
-    {
-        if (m_Finished)
-        {
-            //if we are finished, we check if advertisement is ready, allow to disable the button until it is ready
-#if UNITY_ADS
-            if (!m_AdsInitialised && Advertisement.IsReady(adsPlacementId))
-            {
-                adsForLifeButton.SetActive(true);
-                m_AdsInitialised = true;
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdOffer(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object>
-            {
-                { "level_index", PlayerData.instance.rank },
-                { "distance", TrackManager.instance == null ? 0 : TrackManager.instance.worldDistance },
-            });
-#endif
-            }
-            else if(!m_AdsInitialised)
-                adsForLifeButton.SetActive(false);
-#else
-            adsForLifeButton.SetActive(false); //Ads is disabled
-#endif
-
-            return;
-        }
-
-        CharacterInputController chrCtrl = trackManager.characterController;
-
-        m_TimeSinceStart += Time.deltaTime;
-
-        if (chrCtrl.currentLife <= 0)
-        {
-			pauseButton.gameObject.SetActive(false);
-            chrCtrl.character.animator.SetBool(s_DeadHash, true);
-			chrCtrl.characterCollider.koParticle.gameObject.SetActive(true);
-			StartCoroutine(WaitForGameOver());
-        }
-
-        UpdateUI();
-
-		currentModifier.OnRunTick(this);
-    }
+	public override string GetName()
+	{
+		return "Game";
+	}
 
 	void OnApplicationPause(bool pauseStatus)
 	{
@@ -296,68 +246,4 @@ public class GameState : AState
         trackManager.isRerun = true;
         StartGame();
     }
-
-    public void ShowRewardedAd()
-    {
-        if (m_GameoverSelectionDone)
-            return;
-
-        m_GameoverSelectionDone = true;
-
-#if UNITY_ADS
-        if (Advertisement.IsReady(adsPlacementId))
-        {
-#if UNITY_ANALYTICS
-            AnalyticsEvent.AdStart(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object>
-            {
-                { "level_index", PlayerData.instance.rank },
-                { "distance", TrackManager.instance == null ? 0 : TrackManager.instance.worldDistance },
-            });
-#endif
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show(adsPlacementId, options);
-        }
-        else
-        {
-#if UNITY_ANALYTICS
-            AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object> {
-                { "error", Advertisement.GetPlacementState(adsPlacementId).ToString() }
-            });
-#endif
-        }
-#else
-		GameOver();
-#endif
-    }
-
-    //=== AD
-#if UNITY_ADS
-
-    private void HandleShowResult(ShowResult result)
-    {
-        switch (result)
-        {
-            case ShowResult.Finished:
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdComplete(adsRewarded, adsNetwork, adsPlacementId);
-#endif
-                SecondWind();
-                break;
-            case ShowResult.Skipped:
-                Debug.Log("The ad was skipped before reaching the end.");
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId);
-#endif
-                break;
-            case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
-#if UNITY_ANALYTICS
-                AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object> {
-                    { "error", "failed" }
-                });
-#endif
-                break;
-        }
-    }
-#endif
 }
