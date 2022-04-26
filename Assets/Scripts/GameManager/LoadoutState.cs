@@ -61,7 +61,12 @@ public class LoadoutState : AState
         Refresh();
     }
 
-    public override void Exit(AState to)
+	public override void Tick()
+	{
+
+	}
+
+	public override void Exit(AState to)
     {
         if (m_Character != null) Destroy(m_Character);
 

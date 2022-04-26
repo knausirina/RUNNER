@@ -246,4 +246,48 @@ public class GameState : AState
         trackManager.isRerun = true;
         StartGame();
     }
+
+	public override void Tick()
+	{
+		if (m_Finished)
+		{
+			//if we are finished, we check if advertisement is ready, allow to disable the button until it is ready
+#if UNITY_ADS
+            if (!m_AdsInitialised && Advertisement.IsReady(adsPlacementId))
+            {
+                adsForLifeButton.SetActive(true);
+                m_AdsInitialised = true;
+#if UNITY_ANALYTICS
+                AnalyticsEvent.AdOffer(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object>
+            {
+                { "level_index", PlayerData.instance.rank },
+                { "distance", TrackManager.instance == null ? 0 : TrackManager.instance.worldDistance },
+            });
+#endif
+            }
+            else if(!m_AdsInitialised)
+                adsForLifeButton.SetActive(false);
+#else
+			adsForLifeButton.SetActive(false); //Ads is disabled
+#endif
+
+			return;
+		}
+
+		CharacterInputController chrCtrl = trackManager.characterController;
+
+		m_TimeSinceStart += Time.deltaTime;
+
+		if (chrCtrl.currentLife <= 0)
+		{
+			pauseButton.gameObject.SetActive(false);
+			chrCtrl.character.animator.SetBool(s_DeadHash, true);
+			chrCtrl.characterCollider.koParticle.gameObject.SetActive(true);
+			StartCoroutine(WaitForGameOver());
+		}
+
+		UpdateUI();
+
+		currentModifier.OnRunTick(this);
+	}
 }

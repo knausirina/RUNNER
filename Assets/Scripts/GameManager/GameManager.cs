@@ -128,6 +128,7 @@ public abstract class AState : MonoBehaviour
     [HideInInspector]
     public GameManager manager;
 
+	abstract public void Tick();
 	public abstract void Enter(AState from);
     public abstract void Exit(AState to);
 

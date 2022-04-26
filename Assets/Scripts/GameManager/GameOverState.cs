@@ -53,4 +53,9 @@ public class GameOverState : AState
     {
         trackManager.End();
     }
+
+	public override void Tick()
+	{
+		
+	}
 }
