@@ -85,11 +85,9 @@
      <Compile Include="Assets\Scripts\Obstacles\Missile.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameState.cs" />
      <Compile Include="Assets\Scripts\Characters\Character.cs" />
-     <Compile Include="Assets\Scripts\UI\Settings\SettingPopup.cs" />
      <Compile Include="Assets\Scripts\Helpers.cs" />
      <Compile Include="Assets\Scripts\Characters\RandomAnimation.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
-     <Compile Include="Assets\Scripts\UI\Settings\DataDeleteConfirmation.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
      <None Include="Assets\Shaders\CurvedUnlitCloud.shader" />
      <None Include="Assets\Shaders\CurvedUnlit.shader" />

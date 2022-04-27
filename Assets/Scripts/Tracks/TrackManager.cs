@@ -23,8 +23,14 @@ using UnityEngine.Analytics;
 /// </summary>
 public class TrackManager : MonoBehaviour
 {
-	static public TrackManager instance { get { return s_Instance; } }
-	static protected TrackManager s_Instance;
+	static public TrackManager instance
+	{
+		get
+		{
+			return _instance;
+		}
+	}
+	static protected TrackManager _instance;
 
     static int s_StartHash = Animator.StringToHash("Start");
 
@@ -107,7 +113,7 @@ public class TrackManager : MonoBehaviour
     protected void Awake()
 	{
         m_ScoreAccum = 0.0f;
-		s_Instance = this;
+		_instance = this;
     }
 
 	public void StartMove(bool isRestart = true)

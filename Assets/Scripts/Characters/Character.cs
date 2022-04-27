@@ -8,8 +8,6 @@ using System;
 public class Character : MonoBehaviour
 {
     public string characterName;
-    public int cost;
 
     public Animator animator;
-	public Sprite icon;
 }
