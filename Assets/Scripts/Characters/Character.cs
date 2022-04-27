@@ -7,7 +7,5 @@ using System;
 /// </summary>
 public class Character : MonoBehaviour
 {
-    public string characterName;
-
     public Animator animator;
 }

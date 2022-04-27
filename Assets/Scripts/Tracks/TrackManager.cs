@@ -152,6 +152,8 @@ public class TrackManager : MonoBehaviour
 		StartMove();
 	}
 
+	public GameObject character;
+
 	public void Begin()
 	{
 		if (!m_Rerun)
@@ -168,11 +170,12 @@ public class TrackManager : MonoBehaviour
             characterController.gameObject.SetActive(true);
 
             // Spawn the player
-            Character player = Instantiate(CharacterDatabase.GetCharacter(), Vector3.zero, Quaternion.identity);
+            var playerGO = Instantiate(/*CharacterDatabase.GetCharacter()*/ character, Vector3.zero, Quaternion.identity);
+			var player = playerGO.GetComponent<Animator>();
 			player.transform.SetParent(characterController.characterCollider.transform, false);
 			Camera.main.transform.SetParent(characterController.transform, true);
 
-			characterController.character = player;
+			characterController.character = player.GetComponent<Character>();
 			characterController.trackManager = this;
 
 			characterController.Init();

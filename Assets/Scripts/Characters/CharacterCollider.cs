@@ -136,17 +136,6 @@ public class CharacterCollider : MonoBehaviour
 				SetInvincible ();
 			}
             // The collision killed the player, record all data to analytics.
-			else
-			{
-				m_DeathData.character = controller.character.characterName;
-				m_DeathData.themeUsed = controller.trackManager.currentTheme.themeName;
-				m_DeathData.obstacleType = ob.GetType().ToString();
-				m_DeathData.coins = controller.coins;
-				m_DeathData.premium = controller.premium;
-				m_DeathData.score = controller.trackManager.score;
-				m_DeathData.worldDistance = controller.trackManager.worldDistance;
-
-			}
         }
     }
 

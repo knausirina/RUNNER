@@ -6307,6 +6307,7 @@ MonoBehaviour:
   skyMeshFilter: {fileID: 201362454}
   parallaxRoot: {fileID: 1617204952}
   parallaxRatio: 0.8
+  character: {fileID: 199232, guid: 2ae64d0eaec8d6f4f9436fce6117048d, type: 3}
 --- !u!4 &1958487561
 Transform:
   m_ObjectHideFlags: 0

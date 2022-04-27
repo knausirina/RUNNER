@@ -32,7 +32,6 @@ public class CharacterDatabase
 				_character =  c;
 			}
 		}
-
 		m_Loaded = true;
 	}
 }
