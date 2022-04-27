@@ -35,7 +35,7 @@ public class Missile : Obstacle
 
 		GameObject obj = Instantiate(gameObject, position, rotation);
 		obj.transform.SetParent(segment.objectRoot, true);
-		obj.transform.position += obj.transform.right * lane * segment.manager.laneOffset;
+		obj.transform.position += obj.transform.right * lane * segment.manager.LANE_OFFSET;
 
 		obj.transform.forward = -obj.transform.forward;
 

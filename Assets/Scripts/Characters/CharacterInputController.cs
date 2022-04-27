@@ -14,7 +14,7 @@ public class CharacterInputController : MonoBehaviour
 	static int s_SlidingHash = Animator.StringToHash("Sliding");
 
 	public TrackManager trackManager;
-	public Character character;
+	public Animator character;
 	public CharacterCollider characterCollider;
 	public GameObject blobShadow;
 	public float laneChangeSpeed = 1.0f;
@@ -61,13 +61,18 @@ public class CharacterInputController : MonoBehaviour
     protected const float k_TrackSpeedToJumpAnimSpeedRatio = 0.6f;
     protected const float k_TrackSpeedToSlideAnimSpeedRatio = 0.9f;
 
-    protected void Awake ()
-    {
-        m_Premium = 0;
-        m_CurrentLife = 0;
-        m_Sliding = false;
-        m_SlideStart = 0.0f;
-    }
+	protected void Awake()
+	{
+		m_Premium = 0;
+		m_CurrentLife = 0;
+		m_Sliding = false;
+		m_SlideStart = 0.0f;
+	}
+
+	public void SetState(string state)
+	{
+		character.Play(state);
+	}
 
 #if !UNITY_STANDALONE
     protected Vector2 m_StartingTouch;
@@ -103,26 +108,26 @@ public class CharacterInputController : MonoBehaviour
 	// Called at the beginning of a run or rerun
 	public void Begin()
 	{
-        character.animator.SetBool(s_DeadHash, false);
+        character.SetBool(s_DeadHash, false);
 
 		characterCollider.Init ();
 	}
 
     public void StartRunning()
     {
-        if (character.animator)
+        if (character)
         {
-            character.animator.Play(s_RunStartHash);
-            character.animator.SetBool(s_MovingHash, true);
+            character.Play(s_RunStartHash);
+            character.SetBool(s_MovingHash, true);
         }
     }
 
     public void StopMoving()
     {
         trackManager.StopMove();
-        if (character.animator)
+        if (character)
         {
-            character.animator.SetBool(s_MovingHash, false);
+            character.SetBool(s_MovingHash, false);
         }
     }
 	
@@ -228,7 +233,7 @@ public class CharacterInputController : MonoBehaviour
 				if (ratio >= 1.0f)
 				{
 					m_Jumping = false;
-					character.animator.SetBool(s_JumpingHash, false);
+					character.SetBool(s_JumpingHash, false);
 				}
 				else
 				{
@@ -240,7 +245,7 @@ public class CharacterInputController : MonoBehaviour
 			    verticalTargetPosition.y = Mathf.MoveTowards (verticalTargetPosition.y, 0, k_GroundingSpeed * Time.deltaTime);
 				if (Mathf.Approximately(verticalTargetPosition.y, 0f))
 				{
-					character.animator.SetBool(s_JumpingHash, false);
+					character.SetBool(s_JumpingHash, false);
 					m_Jumping = false;
 				}
 			}
@@ -273,8 +278,8 @@ public class CharacterInputController : MonoBehaviour
 			m_JumpStart = trackManager.worldDistance;
             float animSpeed = k_TrackSpeedToJumpAnimSpeedRatio * (trackManager.speed / correctJumpLength);
 
-            character.animator.SetFloat(s_JumpingSpeedHash, animSpeed);
-            character.animator.SetBool(s_JumpingHash, true);
+            character.SetFloat(s_JumpingSpeedHash, animSpeed);
+            character.SetBool(s_JumpingHash, true);
 			m_Jumping = true;
         }
     }
@@ -283,7 +288,7 @@ public class CharacterInputController : MonoBehaviour
     {
         if (m_Jumping)
         {
-            character.animator.SetBool(s_JumpingHash, false);
+            character.SetBool(s_JumpingHash, false);
             m_Jumping = false;
         }
     }
@@ -300,8 +305,8 @@ public class CharacterInputController : MonoBehaviour
 			m_SlideStart = trackManager.worldDistance;
             float animSpeed = k_TrackSpeedToJumpAnimSpeedRatio * (trackManager.speed / correctSlideLength);
 
-			character.animator.SetFloat(s_JumpingSpeedHash, animSpeed);
-			character.animator.SetBool(s_SlidingHash, true);
+			character.SetFloat(s_JumpingSpeedHash, animSpeed);
+			character.SetBool(s_SlidingHash, true);
 			m_Sliding = true;
 
 			characterCollider.Slide(true);
@@ -312,7 +317,7 @@ public class CharacterInputController : MonoBehaviour
 	{
 		if (m_Sliding)
 		{
-			character.animator.SetBool(s_SlidingHash, false);
+			character.SetBool(s_SlidingHash, false);
 			m_Sliding = false;
 
 			characterCollider.Slide(false);
@@ -331,6 +336,6 @@ public class CharacterInputController : MonoBehaviour
             return;
 
         m_CurrentLane = targetLane;
-        m_TargetPosition = new Vector3((m_CurrentLane - 1) * trackManager.laneOffset, 0, 0);
+        m_TargetPosition = new Vector3((m_CurrentLane - 1) * trackManager.LANE_OFFSET, 0, 0);
     }
 }

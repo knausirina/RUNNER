@@ -144,7 +144,7 @@ public class GameState : AState
         if (chrCtrl.currentLife <= 0)
         {
 			pauseButton.gameObject.SetActive(false);
-            chrCtrl.character.animator.SetBool(s_DeadHash, true);
+            chrCtrl.character.SetBool(s_DeadHash, true);
 			chrCtrl.characterCollider.koParticle.gameObject.SetActive(true);
 			StartCoroutine(WaitForGameOver());
         }

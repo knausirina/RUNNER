@@ -22,7 +22,7 @@ public class SimpleBarricade : Obstacle
             lane = lane > k_RightMostLaneIndex ? k_LeftMostLaneIndex : lane;
 
             GameObject obj = Instantiate(gameObject, position, rotation);
-            obj.transform.position += obj.transform.right * lane * segment.manager.laneOffset;
+            obj.transform.position += obj.transform.right * lane * segment.manager.LANE_OFFSET;
 
             obj.transform.SetParent(segment.objectRoot, true);
         }

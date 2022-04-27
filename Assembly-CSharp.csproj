@@ -72,7 +72,6 @@
      <Compile Include="Assets\Scripts\UI\StartButton.cs" />
      <Compile Include="Assets\AssetBundleManager\AssetBundleLoadOperation.cs" />
      <Compile Include="Assets\AssetBundleManager\Utility.cs" />
-     <Compile Include="Assets\Scripts\Characters\CharacterDatabase.cs" />
      <Compile Include="Assets\Scripts\Obstacles\SimpleBarricade.cs" />
      <Compile Include="Assets\Scripts\Themes\ThemeDatabase.cs" />
      <Compile Include="Assets\Scripts\Tracks\TrackManager.cs" />
@@ -84,11 +83,11 @@
      <Compile Include="Assets\Scripts\Tracks\TrackSegment.cs" />
      <Compile Include="Assets\Scripts\Obstacles\Missile.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameState.cs" />
-     <Compile Include="Assets\Scripts\Characters\Character.cs" />
      <Compile Include="Assets\Scripts\Helpers.cs" />
      <Compile Include="Assets\Scripts\Characters\RandomAnimation.cs" />
      <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Characters\States.cs" />
      <None Include="Assets\Shaders\CurvedUnlitCloud.shader" />
      <None Include="Assets\Shaders\CurvedUnlit.shader" />
      <None Include="Assets\INSTRUCTIONS.txt" />

@@ -32,17 +32,16 @@ public class TrackManager : MonoBehaviour
 	}
 	static protected TrackManager _instance;
 
-    static int s_StartHash = Animator.StringToHash("Start");
+	public GameObject character;
+	public CharacterInputController characterController;
 
 	public delegate int MultiplierModifier(int current);
 	public MultiplierModifier modifyMultiply;
 
-	[Header("Character & Movements")]
-	public CharacterInputController characterController;
-	public float minSpeed = 5.0f;
-	public float maxSpeed = 10.0f;
-	public int speedStep = 4;
-	public float laneOffset = 1.0f;
+	public float MIN_SPEED = 5.0f;
+	public float MAX_SPEED = 10.0f;
+	public int SPEED_STEP = 4;
+	public float LANE_OFFSET = 1.0f;
 
 	public bool invincible = false;
 
@@ -53,7 +52,17 @@ public class TrackManager : MonoBehaviour
 	public Transform parallaxRoot;
 	public float parallaxRatio = 0.5f;
 
-	public int trackSeed {  get { return m_TrackSeed; } set { m_TrackSeed = value; } }
+	public int trackSeed
+	{
+		get
+		{
+			return _trackSpeed;
+		}
+		set
+		{
+			_trackSpeed = value;
+		}
+	}
 
     public float timeToStart { get { return m_TimeToStart; } }  // Will return -1 if already started (allow to update UI)
 
@@ -61,7 +70,7 @@ public class TrackManager : MonoBehaviour
 	public int multiplier {  get { return m_Multiplier; } }
 	public float worldDistance {  get { return m_TotalWorldDistance; } }
 	public float speed {  get { return m_Speed; } }
-	public float speedRatio {  get { return (m_Speed - minSpeed) / (maxSpeed - minSpeed); } }
+	public float speedRatio {  get { return (m_Speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED); } }
 
 	public TrackSegment currentSegment { get { return m_Segments[0]; } }
 	public List<TrackSegment> segments { get { return m_Segments; } }
@@ -74,7 +83,7 @@ public class TrackManager : MonoBehaviour
 
 	// If this is set to -1, random seed is init to system clock, otherwise init to that value
 	// Allow to play the same game multiple time (useful to make specific competition/challenge fair between players)
-	protected int m_TrackSeed = -1;
+	protected int _trackSpeed = -1;
 
 	protected float m_CurrentSegmentDistance;
 	protected float m_TotalWorldDistance;
@@ -120,7 +129,7 @@ public class TrackManager : MonoBehaviour
 	{
 		m_IsMoving = true;
 		if(isRestart)
-			m_Speed = minSpeed;
+			m_Speed = MIN_SPEED;
 	}
 
 	public void StopMove()
@@ -130,7 +139,7 @@ public class TrackManager : MonoBehaviour
 
 	IEnumerator WaitToStart()
 	{
-		characterController.character.animator.Play(s_StartHash);
+		characterController.SetState(States.START);
 		float length = k_CountdownToStartLength;
 		m_TimeToStart = length;
 
@@ -152,14 +161,12 @@ public class TrackManager : MonoBehaviour
 		StartMove();
 	}
 
-	public GameObject character;
-
 	public void Begin()
 	{
 		if (!m_Rerun)
 		{
-			if (m_TrackSeed != -1)
-				Random.InitState(m_TrackSeed);
+			if (_trackSpeed != -1)
+				Random.InitState(_trackSpeed);
 			else
 				Random.InitState((int)System.DateTime.Now.Ticks);
 
@@ -170,12 +177,11 @@ public class TrackManager : MonoBehaviour
             characterController.gameObject.SetActive(true);
 
             // Spawn the player
-            var playerGO = Instantiate(/*CharacterDatabase.GetCharacter()*/ character, Vector3.zero, Quaternion.identity);
-			var player = playerGO.GetComponent<Animator>();
-			player.transform.SetParent(characterController.characterCollider.transform, false);
+            var character = Instantiate(this.character, Vector3.zero, Quaternion.identity);
+			character.transform.SetParent(characterController.characterCollider.transform, false);
 			Camera.main.transform.SetParent(characterController.transform, true);
 
-			characterController.character = player.GetComponent<Character>();
+			characterController.character = character.GetComponent<Animator>();
 			characterController.trackManager = this;
 
 			characterController.Init();
@@ -356,12 +362,12 @@ public class TrackManager : MonoBehaviour
 
 		PowerupSpawnUpdate();
 
-		if (m_Speed < maxSpeed)
+		if (m_Speed < MAX_SPEED)
             m_Speed += k_Acceleration * Time.deltaTime;
 		else
-			m_Speed = maxSpeed;
+			m_Speed = MAX_SPEED;
 
-        m_Multiplier = 1 + Mathf.FloorToInt((m_Speed - minSpeed) / (maxSpeed - minSpeed) * speedStep);
+        m_Multiplier = 1 + Mathf.FloorToInt((m_Speed - MIN_SPEED) / (MAX_SPEED - MIN_SPEED) * SPEED_STEP);
 
         if (modifyMultiply != null)
         {
@@ -471,7 +477,7 @@ public class TrackManager : MonoBehaviour
 
 			bool laneValid = true;
 			int testedLane = currentLane;
-			while(Physics.CheckSphere(pos + ((testedLane - 1) * laneOffset * (rot*Vector3.right)), 0.4f, 1<<9))
+			while(Physics.CheckSphere(pos + ((testedLane - 1) * LANE_OFFSET * (rot*Vector3.right)), 0.4f, 1<<9))
 			{
 				testedLane = (testedLane + 1) % 3;
 				if (currentLane == testedLane)
@@ -486,7 +492,7 @@ public class TrackManager : MonoBehaviour
 
 			if(laneValid)
 			{
-				pos = pos + ((currentLane - 1) * laneOffset * (rot * Vector3.right));
+				pos = pos + ((currentLane - 1) * LANE_OFFSET * (rot * Vector3.right));
 
 
                 GameObject toUse;

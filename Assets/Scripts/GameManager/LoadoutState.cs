@@ -35,12 +35,10 @@ public class LoadoutState : AState
 
     protected GameObject m_Character;
 	protected int m_UsedPowerupIndex;
-    protected bool m_IsLoadingCharacter;
 
 	protected Modifier m_CurrentModifier = new Modifier();
 
     protected const float k_CharacterRotationSpeed = 45f;
-    protected const string k_ShopSceneName = "shop";
     protected const float k_OwnedAccessoriesCharacterOffset = -0.1f;
     protected int k_UILayer;
     protected readonly Quaternion k_FlippedYAxisRotation = Quaternion.Euler (0f, 180f, 0f);
@@ -57,8 +55,6 @@ public class LoadoutState : AState
 
         runButton.interactable = false;
         runButton.GetComponentInChildren<Text>().text = "Loading...";
-
-        Refresh();
     }
 
     public override void Exit(AState to)
@@ -79,84 +75,29 @@ public class LoadoutState : AState
         }
     }
 
-    public void Refresh()
-    {
-        StartCoroutine(PopulateCharacters());
-    }
-
     public override string GetName()
     {
         return "Loadout";
     }
 
-    public override void Tick()
-    {
-        if (!runButton.interactable)
-        {
-            bool interactable = ThemeDatabase.loaded && CharacterDatabase.loaded;
-            if(interactable)
-            {
-                runButton.interactable = true;
-                runButton.GetComponentInChildren<Text>().text = "Run!";
-            }
-        }
+	public override void Tick()
+	{
+		if (!runButton.interactable)
+		{
+			bool interactable = ThemeDatabase.loaded /* &&  CharacterDatabase.loaded*/;
+			if (interactable)
+			{
+				runButton.interactable = true;
+				runButton.GetComponentInChildren<Text>().text = "Run!";
+			}
+		}
 
-        if(m_Character != null)
-        {
-            m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
-        }	
+		if (m_Character != null)
+		{
+			m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
+		}
 
 		//themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
-    }
-
-	public void GoToStore()
-	{
-        UnityEngine.SceneManagement.SceneManager.LoadScene(k_ShopSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-	}
-
-    public void ChangeCharacter(int dir)
-    {
-        StartCoroutine(PopulateCharacters());
-    }
-
-    public IEnumerator PopulateCharacters()
-    {
-		if (!m_IsLoadingCharacter)
-		{
-			m_IsLoadingCharacter = true;
-			GameObject newChar = null;
-			while (newChar == null)
-			{
-				Character c = CharacterDatabase.GetCharacter();
-
-				if (c != null)
-				{
-					Vector3 pos = charPosition.transform.position;
-					pos.x = 0.0f;
-					charPosition.transform.position = pos;
-
-					newChar = Instantiate(c.gameObject);
-					Helpers.SetRendererLayerRecursive(newChar, k_UILayer);
-					newChar.transform.SetParent(charPosition, false);
-					newChar.transform.rotation = k_FlippedYAxisRotation;
-
-					if (m_Character != null)
-						Destroy(m_Character);
-
-					m_Character = newChar;
-
-					m_Character.transform.localPosition = Vector3.right * 1000;
-					//animator will take a frame to initialize, during which the character will be in a T-pose.
-					//So we move the character off screen, wait that initialised frame, then move the character back in place.
-					//That avoid an ugly "T-pose" flash time
-					yield return new WaitForEndOfFrame();
-					m_Character.transform.localPosition = Vector3.zero;
-				}
-				else
-					yield return new WaitForSeconds(1.0f);
-			}
-			m_IsLoadingCharacter = false;
-		}
 	}
 
 	public void SetModifier(Modifier modifier)

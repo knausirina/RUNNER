@@ -58,7 +58,6 @@ public class AssetBundlesDatabaseHandler
                 themePackage.Add(bundles[i]);
         }
 
-        yield return CoroutineHandler.StartStaticCoroutine(CharacterDatabase.LoadDatabase("characters/cat"));
         yield return CoroutineHandler.StartStaticCoroutine(ThemeDatabase.LoadDatabase(themePackage));
     }
 }
