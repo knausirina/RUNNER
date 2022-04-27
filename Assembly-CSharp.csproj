@@ -73,15 +73,12 @@
      <Compile Include="Assets\AssetBundleManager\AssetBundleLoadOperation.cs" />
      <Compile Include="Assets\AssetBundleManager\Utility.cs" />
      <Compile Include="Assets\Scripts\Obstacles\SimpleBarricade.cs" />
-     <Compile Include="Assets\Scripts\Themes\ThemeDatabase.cs" />
      <Compile Include="Assets\Scripts\Tracks\TrackManager.cs" />
      <Compile Include="Assets\Scripts\Obstacles\Obstacle.cs" />
-     <Compile Include="Assets\Scripts\AssetBundlesDatabaseHandler.cs" />
      <Compile Include="Assets\Scripts\OpenURL.cs" />
      <Compile Include="Assets\Scripts\CoroutineHandler.cs" />
      <Compile Include="Assets\Scripts\GameManager\Modifier.cs" />
      <Compile Include="Assets\Scripts\Tracks\TrackSegment.cs" />
-     <Compile Include="Assets\Scripts\Obstacles\Missile.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameState.cs" />
      <Compile Include="Assets\Scripts\Helpers.cs" />
      <Compile Include="Assets\Scripts\Characters\RandomAnimation.cs" />

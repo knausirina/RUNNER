@@ -50,122 +50,6 @@ public class PlayerData
         characterAccessories.Add(name);
     }
 
-
-	/*
-	public void Read()
-	{
-		
-		BinaryReader r = new BinaryReader(new FileStream(saveFile, FileMode.Open));
-
-		int ver = r.ReadInt32();
-
-		if (ver < 6)
-		{
-			r.Close();
-
-			NewSave();
-			r = new BinaryReader(new FileStream(saveFile, FileMode.Open));
-			ver = r.ReadInt32();
-		}
-
-		coins = r.ReadInt32();
-
-		consumables.Clear();
-		int consumableCount = r.ReadInt32();
-		for (int i = 0; i < consumableCount; ++i)
-		{
-			consumables.Add((Consumable.ConsumableType)r.ReadInt32(), r.ReadInt32());
-		}
-
-		// Read character.
-		characters.Clear();
-		int charCount = r.ReadInt32();
-		for (int i = 0; i < charCount; ++i)
-		{
-			string charName = r.ReadString();
-
-			if (charName.Contains("Raccoon") && ver < 11)
-			{//in 11 version, we renamed Raccoon (fixing spelling) so we need to patch the save to give the character if player had it already
-				charName = charName.Replace("Racoon", "Raccoon");
-			}
-
-			characters.Add(charName);
-		}
-
-		usedCharacter = r.ReadInt32();
-
-		// Read character accesories.
-		characterAccessories.Clear();
-		int accCount = r.ReadInt32();
-		for (int i = 0; i < accCount; ++i)
-		{
-			characterAccessories.Add(r.ReadString());
-		}
-
-		// Read Themes.
-		themes.Clear();
-		int themeCount = r.ReadInt32();
-		for (int i = 0; i < themeCount; ++i)
-		{
-			themes.Add(r.ReadString());
-		}
-
-		usedTheme = r.ReadInt32();
-
-		// Save contains the version they were written with. If data are added bump the version & test for that version before loading that data.
-		if (ver >= 2)
-		{
-			premium = r.ReadInt32();
-		}
-
-		// Added missions.
-		if (ver >= 4)
-		{
-			missions.Clear();
-
-			int count = r.ReadInt32();
-			for (int i = 0; i < count; ++i)
-			{
-				MissionBase.MissionType type = (MissionBase.MissionType)r.ReadInt32();
-				MissionBase tempMission = MissionBase.GetNewMissionFromType(type);
-
-				tempMission.Deserialize(r);
-
-				if (tempMission != null)
-				{
-					missions.Add(tempMission);
-				}
-			}
-		}
-
-		// Added highscore previous name used.
-		if (ver >= 7)
-		{
-			previousName = r.ReadString();
-		}
-
-		if (ver >= 8)
-		{
-			licenceAccepted = r.ReadBoolean();
-		}
-
-		if (ver >= 9)
-		{
-			masterVolume = r.ReadSingle();
-			musicVolume = r.ReadSingle();
-			masterSFXVolume = r.ReadSingle();
-		}
-
-		if (ver >= 10)
-		{
-			ftueLevel = r.ReadInt32();
-			rank = r.ReadInt32();
-		}
-
-		r.Close();
-	}
-	*/
-
 	static public void Create()
 	{
 		if (m_Instance == null)
@@ -175,7 +59,6 @@ public class PlayerData
 			//if we create the PlayerData, mean it's the very first call, so we use that to init the database
 			//this allow to always init the database at the earlier we can, i.e. the start screen if started normally on device
 			//or the Loadout screen if testing in editor
-			AssetBundlesDatabaseHandler.Load();
 		}
 
 		if (File.Exists(m_Instance.saveFile))

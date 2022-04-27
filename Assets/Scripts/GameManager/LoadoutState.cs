@@ -62,12 +62,8 @@ public class LoadoutState : AState
 	{
 		if (!runButton.interactable)
 		{
-			bool interactable = ThemeDatabase.loaded;
-			if (interactable)
-			{
-				runButton.interactable = true;
-				runButton.GetComponentInChildren<Text>().text = "Run!";
-			}
+			runButton.interactable = true;
+			runButton.GetComponentInChildren<Text>().text = "Run!";
 		}
 
 		if (_character != null)
