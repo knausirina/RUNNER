@@ -7,23 +7,14 @@ public struct ThemeZone
 	public TrackSegment[] prefabList;
 }
 
-/// <summary>
-/// This is an asset which contains all the data for a theme.
-/// As an asset it live in the project folder, and get built into an asset bundle.
-/// </summary>
-[CreateAssetMenu(fileName ="themeData", menuName ="Trash Dash/Theme Data")]
 public class ThemeData : ScriptableObject
 {
     [Header("Theme Data")]
     public string themeName;
-    public int cost;
-	public int premiumCost;
-	public Sprite themeIcon;
 
 	[Header("Objects")]
 	public ThemeZone[] zones;
 	public GameObject collectiblePrefab;
-    public GameObject premiumCollectible;
 
     [Header("Decoration")]
     public GameObject[] cloudPrefabs;

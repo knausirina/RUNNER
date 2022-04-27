@@ -12,41 +12,19 @@ using UnityEngine.Analytics;
 /// </summary>
 public class LoadoutState : AState
 {
-    [Header("Char UI")]
-	public RectTransform charSelect;
-	public Transform charPosition;
-
-	[Header("PowerUp UI")]
-	public RectTransform powerupSelect;
-	public Image powerupIcon;
-	public Text powerupCount;
-    public Sprite noItemIcon;
-
-	[Header("Accessory UI")]
-    public RectTransform accessoriesSelector;
-    public Text accesoryNameDisplay;
-	public Image accessoryIconDisplay;
-
-	[Header("Other Data")]
 	public Button runButton;
 
 	public MeshFilter skyMeshFilter;
 	public MeshFilter UIGroundFilter;
 
-    protected GameObject m_Character;
-	protected int m_UsedPowerupIndex;
+    protected GameObject _character;
 
-	protected Modifier m_CurrentModifier = new Modifier();
+	protected Modifier _currentModifier = new Modifier();
 
-    protected const float k_CharacterRotationSpeed = 45f;
-    protected const float k_OwnedAccessoriesCharacterOffset = -0.1f;
-    protected int k_UILayer;
-    protected readonly Quaternion k_FlippedYAxisRotation = Quaternion.Euler (0f, 180f, 0f);
+    protected const float CHARACTER_ROTATE_SPEED = 45f;
 
     public override void Enter(AState from)
     {
-		 k_UILayer = LayerMask.NameToLayer("UI");
-
         skyMeshFilter.gameObject.SetActive(true);
         UIGroundFilter.gameObject.SetActive(true);
 
@@ -59,7 +37,7 @@ public class LoadoutState : AState
 
     public override void Exit(AState to)
     {
-        if (m_Character != null) Destroy(m_Character);
+        if (_character != null) Destroy(_character);
 
         GameState gs = to as GameState;
 
@@ -68,10 +46,10 @@ public class LoadoutState : AState
 
         if (gs != null)
         {
-			gs.currentModifier = m_CurrentModifier;
+			gs.currentModifier = _currentModifier;
 			
             // We reset the modifier to a default one, for next run (if a new modifier is applied, it will replace this default one before the run starts)
-			m_CurrentModifier = new Modifier();
+			_currentModifier = new Modifier();
         }
     }
 
@@ -84,7 +62,7 @@ public class LoadoutState : AState
 	{
 		if (!runButton.interactable)
 		{
-			bool interactable = ThemeDatabase.loaded /* &&  CharacterDatabase.loaded*/;
+			bool interactable = ThemeDatabase.loaded;
 			if (interactable)
 			{
 				runButton.interactable = true;
@@ -92,17 +70,15 @@ public class LoadoutState : AState
 			}
 		}
 
-		if (m_Character != null)
+		if (_character != null)
 		{
-			m_Character.transform.Rotate(0, k_CharacterRotationSpeed * Time.deltaTime, 0, Space.Self);
+			_character.transform.Rotate(0, CHARACTER_ROTATE_SPEED * Time.deltaTime, 0, Space.Self);
 		}
-
-		//themeSelect.gameObject.SetActive(PlayerData.instance.themes.Count > 1);
 	}
 
 	public void SetModifier(Modifier modifier)
 	{
-		m_CurrentModifier = modifier;
+		_currentModifier = modifier;
 	}
 
     public void StartGame()

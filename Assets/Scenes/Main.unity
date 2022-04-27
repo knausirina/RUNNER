@@ -2205,15 +2205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  charSelect: {fileID: 0}
-  charPosition: {fileID: 764160786}
-  powerupSelect: {fileID: 0}
-  powerupIcon: {fileID: 0}
-  powerupCount: {fileID: 0}
-  noItemIcon: {fileID: 21300070, guid: e1a536f74c7ef384a8d7132148ace0c8, type: 3}
-  accessoriesSelector: {fileID: 0}
-  accesoryNameDisplay: {fileID: 0}
-  accessoryIconDisplay: {fileID: 0}
   runButton: {fileID: 1393864684}
   skyMeshFilter: {fileID: 1222759691}
   UIGroundFilter: {fileID: 517316206}
@@ -6298,16 +6289,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357943a8c88ecc848b7f5de152a00562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 199232, guid: 2ae64d0eaec8d6f4f9436fce6117048d, type: 3}
   characterController: {fileID: 2094493432}
-  minSpeed: 10
-  maxSpeed: 30
-  speedStep: 4
-  laneOffset: 1.5
+  themeData: {fileID: 11400000, guid: 0d80a5ee0a199154784a904ed88da003, type: 2}
+  MIN_SPEED: 5
+  MAX_SPEED: 10
+  SPEED_STEP: 4
+  LANE_OFFSET: 1
   invincible: 0
   skyMeshFilter: {fileID: 201362454}
   parallaxRoot: {fileID: 1617204952}
   parallaxRatio: 0.8
-  character: {fileID: 199232, guid: 2ae64d0eaec8d6f4f9436fce6117048d, type: 3}
 --- !u!4 &1958487561
 Transform:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ public class TrackManager : MonoBehaviour
 
 	public GameObject character;
 	public CharacterInputController characterController;
+	public ThemeData themeData;
 
 	public delegate int MultiplierModifier(int current);
 	public MultiplierModifier modifyMultiply;
@@ -187,7 +188,7 @@ public class TrackManager : MonoBehaviour
 			characterController.Init();
 			characterController.CheatInvincible(invincible);
 
-            m_CurrentThemeData = ThemeDatabase.GetThemeData(PlayerData.instance.themes[PlayerData.instance.usedTheme]);
+			m_CurrentThemeData = themeData;
 			m_CurrentZone = 0;
 			m_CurrentZoneDistance = 0;
 
@@ -510,11 +511,13 @@ public class TrackManager : MonoBehaviour
 				}
 				else if (Random.value < premiumChance)
 				{
+					/*
 					m_TimeSinceLastPremium = 0.0f;
 					premiumChance = 0.0f;
 
 					toUse = Instantiate(currentTheme.premiumCollectible, pos, rot);
 					toUse.transform.SetParent(segment.transform, true);
+					*/
 				}
 				else
 				{
